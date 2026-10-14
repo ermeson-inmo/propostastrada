@@ -340,6 +340,24 @@ td small{display:block; color:var(--ink-faint); font-size:13px; margin-top:4px;}
 .light .price-col{background:#FFFFFF;}
 body{background:#FFFFFF;}
 
+/* evoluções */
+.evo-head{margin:72px 0 8px; max-width:720px;}
+.evo-head h3{font-size:clamp(24px,2.8vw,32px); font-weight:700; color:var(--heading);}
+.evo-head p{margin-top:12px; color:var(--ink-soft); font-size:16.5px; max-width:62ch;}
+.delivery .num.evo{display:inline-flex; gap:8px; align-items:center;}
+.delivery .num.evo em{font-style:normal; font-size:12px; font-weight:600; color:#6D4C93; border:1.5px solid #6D4C93; border-radius:100px; padding:2px 10px;}
+.prereq{margin-top:22px; padding:20px 22px; border-radius:12px; border:1.5px dashed #6D4C93; max-width:70ch;}
+.prereq h4{font-size:15.5px; color:var(--heading); margin-bottom:10px;}
+.prereq ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+.prereq li{font-size:14.5px; padding-left:22px; position:relative; color:var(--ink);}
+.prereq li::before{content:''; position:absolute; left:2px; top:7px; width:9px; height:9px; border-radius:2px; border:1.5px solid #6D4C93;}
+.inv-row.sub{border-bottom:1px solid rgba(255,255,255,.4);}
+.inv-row.sub h4{color:var(--on-deep-soft); font-weight:500;}
+.inv-row.sub .v{font-size:18px; color:var(--on-deep-soft);}
+.badge{white-space:nowrap;}
+.inv-group{padding:26px 0 4px; font-family:var(--f-display); font-size:14px; font-weight:600; color:var(--brand-light);}
+.purple td .ext{font-family:var(--f-body); font-size:13.5px; color:#fff; font-weight:600;}
+
 @media print{
   .nav{display:none;} .section{padding:48px 0;} .seq{opacity:1; transform:none; animation:none;}
   .delivery,.plan,.node,.inv-row{break-inside:avoid; page-break-inside:avoid;}
@@ -371,8 +389,8 @@ body{background:#FFFFFF;}
       <h1>O caminhoneiro resolve pelo WhatsApp. Seu time cuida do que precisa de gente.</h1>
       <p class="lead">Um agente de IA no Blip que entende áudio e foto, reconhece o motorista, atualiza documentos, consulta viagens e entrega ao atendimento as solicitações sensíveis já organizadas.</p>
       <div class="hero-facts">
-        <div><b>3 entregas</b>contratáveis de forma independente</div>
-        <div><b>72 dias úteis</b>para o escopo completo</div>
+        <div><b>5 entregas</b>3 para começar e 2 evoluções</div>
+        <div><b>72 dias úteis</b>para as entregas 1 a 3</div>
         <div><b>Texto, áudio e foto</b>no mesmo atendimento</div>
       </div>
     </div>
@@ -499,8 +517,8 @@ body{background:#FFFFFF;}
   <div class="wrap">
     <div class="sec-head">
       <span class="tag">Entregas</span>
-      <h2>Três entregas, cada uma com escopo, prazo e investimento próprios.</h2>
-      <p>A Entrega 1 cria a base de reconhecimento do motorista usada pelas demais. A partir dela, vocês podem contratar as entregas seguintes juntas ou conforme a prioridade da operação.</p>
+      <h2>Cinco entregas, cada uma com escopo, prazo e investimento próprios.</h2>
+      <p>As Entregas 1 a 3 colocam o agente de IA em operação para o motorista. As Entregas 4 e 5 são evoluções que automatizam a validação de identidade e levam notificações ativas às transportadoras. A Entrega 1 cria a base usada pelas demais.</p>
     </div>
 
     <div class="route" aria-label="Prazo das entregas em dias úteis">
@@ -510,7 +528,7 @@ body{background:#FFFFFF;}
         <div class="r3">Entrega 3: 15 dias</div>
       </div>
       <div class="route-scale"><span>Início</span><span>72 dias úteis</span></div>
-      <p class="route-note">Prazos em dias úteis, contados a partir do kick-off e do acesso aos ambientes de homologação.</p>
+      <p class="route-note">Prazos em dias úteis, contados a partir do kick-off e do acesso aos ambientes de homologação. Os prazos das Entregas 4 e 5 contam a partir da disponibilização dos pré-requisitos pela Strada.</p>
     </div>
 
     <article class="delivery">
@@ -586,7 +604,7 @@ body{background:#FFFFFF;}
           <li>Troca de número de telefone<span>CNH aberta, selfie com a CNH, vídeo de confirmação, novo número e e-mail.</span></li>
           <li>Entrega organizada ao atendente<span>Dados e anexos reunidos em um único atendimento.</span></li>
         </ul>
-        <div class="callout"><b>Por que a validação fica com o atendente.</b> A verificação de identidade por foto, vídeo e áudio, como prova de vida e comparação facial, não é um recurso nativo do Blip. Como evolução futura, é possível avaliar a integração com uma ferramenta especializada de validação de identidade para essa etapa, seguida do salvamento automático via API.</div>
+        <div class="callout"><b>Por que a validação fica com o atendente.</b> A verificação de identidade por foto, vídeo e áudio, como prova de vida e comparação facial, não é um recurso nativo do Blip. A Entrega 4 automatiza essa etapa com biometria facial, mantendo o atendente como contingência.</div>
       </div>
       <aside class="price-col">
         <span class="cap">Investimento</span>
@@ -594,6 +612,77 @@ body{background:#FFFFFF;}
         <div class="row">Prazo<b>15 dias úteis</b></div>
         <div class="row">Efetivação<b>Atendente Strada</b></div>
         <p class="dep">Depende da Entrega 1.</p>
+      </aside>
+    </article>
+
+    <div class="evo-head">
+      <h3>Evoluções do projeto</h3>
+      <p>Duas evoluções que respondem a necessidades levantadas pela Strada. Cada uma traz os pré-requisitos técnicos que precisam estar disponíveis do lado de vocês para que a construção aconteça.</p>
+    </div>
+
+    <article class="delivery">
+      <div>
+        <span class="num evo">Entrega 4 <em>Evolução</em></span>
+        <h3>Validação de identidade com biometria facial</h3>
+        <p class="intro">Automatiza a validação que, na Entrega 3, fica com o atendente. O motorista envia a selfie pelo WhatsApp, o agente encaminha a imagem ao serviço de biometria facial da Strada e, com a aprovação, a troca de telefone e a atualização dos dados da ANTT são gravadas direto no cadastro.</p>
+        <ul class="scope">
+          <li>Envio da selfie<span>Orientação ao motorista e pedido de reenvio quando a imagem não for aceita.</span></li>
+          <li>Integração com o serviço de biometria<span>Envio da imagem e recebimento da aprovação ou recusa.</span></li>
+          <li>Efetivação automática<span>Troca de telefone e dados da ANTT gravados via API após a aprovação.</span></li>
+          <li>Contingência com o atendente<span>Recusa, baixa confiança ou indisponibilidade do serviço seguem para o atendente com os dados da Entrega 3.</span></li>
+        </ul>
+        <div class="prereq">
+          <h4>Pré-requisitos da Strada</h4>
+          <ul>
+            <li>Serviço de biometria facial contratado pela Strada junto a um provedor especializado, com comparação facial e prova de vida.</li>
+            <li>API desse serviço que receba a selfie (arquivo ou URL) e o CPF ou a foto de referência, e devolva o resultado com o nível de confiança em tempo real, idealmente em até 10 segundos. Se a análise for assíncrona, webhook com o resultado.</li>
+            <li>Endpoints de gravação para troca de telefone e para alteração de dados da ANTT e bancários, que hoje não fazem parte da API Chat-bot.</li>
+            <li>Regras de aprovação definidas pela Strada, como nível mínimo de confiança e casos que exigem análise humana.</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="price-col">
+        <span class="cap">Investimento</span>
+        <div class="big">R$ 9.099,90</div>
+        <div class="row">Prazo<b>15 dias úteis</b></div>
+        <div class="row">Sistemas<b>Biometria e API Carguero</b></div>
+        <div class="row">Uso de IA<b>Sim</b></div>
+        <p class="dep">Depende das Entregas 1 e 3.</p>
+      </aside>
+    </article>
+
+    <article class="delivery">
+      <div>
+        <span class="num evo">Entrega 5 <em>Evolução</em></span>
+        <h3>Notificações ativas de status de carga para transportadoras</h3>
+        <p class="intro">A transportadora passa a ser avisada no WhatsApp sobre eventos da carga que geram custo, como espera para carregar, pendência de nota fiscal e atraso em trânsito. Com o aviso no momento certo, ela consegue agir antes de pagar multas, diárias de hotel e alimentação causadas por atrasos.</p>
+        <ul class="scope">
+          <li>Disparo automático por evento<span>Eventos enviados pelo sistema da Strada viram mensagens ativas no WhatsApp, via Intrigg.</span></li>
+          <li>API intermediária<span>Recebe os webhooks da Strada e converte os eventos para o formato de envio do Intrigg.</span></li>
+          <li>Modelos de mensagem por evento<span>Até 6 modelos, como aguardando carregamento, espera excedida, pendência de nota fiscal, atraso em trânsito, chegada e descarga concluída.</span></li>
+          <li>Fluxo de resposta curto<span>Até 5 blocos para a transportadora confirmar o recebimento ou falar com o atendimento.</span></li>
+          <li>Regras de envio<span>Horários de envio, agrupamento de eventos e controle de descadastro.</span></li>
+        </ul>
+        <div class="callout info"><b>Por que uma API intermediária.</b> O Intrigg ainda não tem integração nativa com o sistema da Strada. A API intermediária recebe os webhooks de eventos de carga, valida a autenticação e organiza os dados no formato esperado pelo Intrigg. Ela precisa de hospedagem, que pode ficar na infraestrutura da Strada ou, de forma opcional, com a Inmo.</div>
+        <div class="prereq">
+          <h4>Pré-requisitos da Strada</h4>
+          <ul>
+            <li>Webhook do sistema da Strada para cada evento de carga, enviado à API intermediária no momento em que ele acontece, com autenticação por token ou assinatura.</li>
+            <li>Dados mínimos em cada evento: número da viagem, CNPJ e telefone de contato da transportadora, motorista, placa, tipo de evento, data e hora e, quando houver, previsão e localização.</li>
+            <li>Base de contatos das transportadoras com consentimento para receber mensagens no WhatsApp.</li>
+            <li>Plano Intrigg compatível com o volume de eventos. Com cerca de 6 mil carregamentos por dia, o volume tende a superar os planos padrão e é tratado em modelo sob medida.</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="price-col">
+        <span class="cap">Investimento</span>
+        <div class="big">R$ 14.299,80</div>
+        <div class="row">Notificações e fluxo<b>R$ 7.799,90</b></div>
+        <div class="row">API intermediária<b>R$ 6.499,90</b></div>
+        <div class="row">Prazo<b>25 dias úteis</b></div>
+        <div class="row">Hospedagem Inmo<b class="wrap">Opcional, sob consulta</b></div>
+        <div class="row">Mensalidade Intrigg<b class="wrap">Conforme volume</b></div>
+        <p class="dep">Recomendada após a Entrega 1.</p>
       </aside>
     </article>
   </div>
@@ -618,6 +707,10 @@ body{background:#FFFFFF;}
           <tr><td><code>/v1/chat-bot/motorista/{driverId}/documento/{tipoDocumento}</code></td><td>Carguero</td><td>Enviar CNH ou CRLV para análise<small>Processamento assíncrono, resultado consultado no status do cadastro</small></td><td>1</td><td><span class="badge ok">Documentada</span></td></tr>
           <tr><td><code>/wsconvenio/resources/autenticacaoViagem</code></td><td>WSConvenio</td><td>Autenticar o acesso ao WSConvenio antes das consultas</td><td>2</td><td><span class="badge ok">Documentada</span></td></tr>
           <tr><td><code>/wsconvenio/resources/consultaViagensMotorista</code></td><td>WSConvenio</td><td>Listar as viagens do motorista no período, com status e valores<small>Retorno em JSON, conforme evolução da API pela Strada</small></td><td>2</td><td><span class="badge ok">Documentada</span></td></tr>
+          <tr><td><span class="ext">API de biometria facial</span></td><td>Provedor contratado pela Strada</td><td>Comparação facial e prova de vida da selfie do motorista</td><td>4</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Gravação de troca de telefone</span></td><td>Strada</td><td>Efetivar a troca do número após a aprovação</td><td>4</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Gravação de dados da ANTT e bancários</span></td><td>Strada</td><td>Efetivar a alteração após a aprovação</td><td>4</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Webhook de eventos de carga</span></td><td>Strada</td><td>Enviar cada evento de carga à API intermediária em tempo real</td><td>5</td><td><span class="badge check">A disponibilizar</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -637,6 +730,7 @@ body{background:#FFFFFF;}
       <span>Documento recebido ou aprovado</span>
       <span>Cadastro com informação pendente</span>
       <span>Atualização de status de viagem</span>
+      <span>Status de carga para transportadoras</span>
     </div>
     <div class="plans">
       <div class="plan">
@@ -688,8 +782,7 @@ body{background:#FFFFFF;}
       <p>Evoluções que conversam com o que vocês nos contaram. Cada uma seria avaliada e orçada em proposta própria.</p>
     </div>
     <div class="future">
-      <div><h4>Validação de identidade automatizada</h4><p>Integração com ferramenta especializada para validar selfie, vídeo e documentos, permitindo que ANTT e troca de telefone sejam efetivadas via API.</p></div>
-      <div><h4>Consultas para transportadoras e embarcadores</h4><p>Ampliar a consulta de viagens para outros públicos, conforme a disponibilidade de APIs por número de viagem ou CNPJ.</p></div>
+      <div><h4>Consultas para embarcadores</h4><p>Levar a consulta de status de carga também ao dono da mercadoria, aproveitando a estrutura criada na Entrega 5.</p></div>
       <div><h4>Oferta ativa de frete</h4><p>Uso do WhatsApp para ofertar fretes ao caminhoneiro e estimular a demanda, apoiado em notificações e nos recursos de inteligência da Blip.</p></div>
     </div>
   </div>
@@ -700,13 +793,17 @@ body{background:#FFFFFF;}
     <div class="sec-head">
       <span class="tag">Investimento</span>
       <h2>Resumo do investimento.</h2>
-      <p>Cada entrega pode ser contratada de forma independente, respeitando a dependência da Entrega 1.</p>
+      <p>Cada entrega pode ser contratada de forma independente, respeitando as dependências indicadas.</p>
     </div>
     <div class="inv-table">
       <div class="inv-row"><div><h4>Entrega 1</h4><p>Agente de IA, cadastro e documentos do motorista e dúvidas frequentes</p></div><div class="d">35 dias úteis</div><div class="v">R$ 24.699,90</div></div>
       <div class="inv-row"><div><h4>Entrega 2</h4><p>Consulta de viagens do motorista</p></div><div class="d">22 dias úteis</div><div class="v">R$ 7.799,90</div></div>
       <div class="inv-row"><div><h4>Entrega 3</h4><p>Coleta assistida de dados da ANTT e troca de telefone</p></div><div class="d">15 dias úteis</div><div class="v">R$ 8.449,90</div></div>
-      <div class="inv-row total"><div><h4>Total do escopo</h4></div><div class="d">72 dias úteis</div><div class="v">R$ 40.949,70</div></div>
+      <div class="inv-row sub"><div><h4>Subtotal das Entregas 1 a 3</h4></div><div class="d">72 dias úteis</div><div class="v">R$ 40.949,70</div></div>
+      <div class="inv-group">Evoluções</div>
+      <div class="inv-row"><div><h4>Entrega 4</h4><p>Validação de identidade com biometria facial</p></div><div class="d">15 dias úteis</div><div class="v">R$ 9.099,90</div></div>
+      <div class="inv-row"><div><h4>Entrega 5</h4><p>Notificações ativas de status de carga para transportadoras, com API intermediária</p></div><div class="d">25 dias úteis</div><div class="v">R$ 14.299,80</div></div>
+      <div class="inv-row total"><div><h4>Total com evoluções</h4></div><div class="d">112 dias úteis</div><div class="v">R$ 64.349,40</div></div>
     </div>
     <div class="terms">
       <p>Licenciamento da plataforma Blip e custos de mensagens do WhatsApp não estão incluídos.</p>
@@ -714,6 +811,8 @@ body{background:#FFFFFF;}
       <p>Correções ou evoluções após a entrega são tratadas mediante nova proposta, solicitada pela Strada.</p>
       <p>Prazos contados a partir do kick-off e do acesso às APIs e ambientes de homologação.</p>
       <p>O envio de documentos considera que a conversa de atendimento estará disponível no Zendesk, conforme o guia de integração. Caso o vínculo entre Blip e Zendesk exija desenvolvimento adicional, ele será tratado em proposta específica.</p>
+      <p>As Entregas 4 e 5 dependem dos pré-requisitos indicados em cada uma, e seus prazos contam a partir da disponibilização desses itens pela Strada.</p>
+      <p>Contratação do serviço de biometria facial, mensalidade do Intrigg e hospedagem da API intermediária não estão incluídas nos valores das evoluções.</p>
       <p>Validade da proposta: 10 dias corridos a partir do envio.</p>
     </div>
   </div>
@@ -727,6 +826,8 @@ body{background:#FFFFFF;}
     </div>
     <ol class="questions">
       <li>Como as conversas atendidas no Blip serão vinculadas ao Zendesk?<span>O envio de documentos e a identificação pela conversa usam o identificador da conversa no Zendesk, e o documento é obtido a partir das mensagens dessa conversa.</span></li>
+      <li>A Strada já possui ou pretende contratar um serviço de biometria facial?<span>Essa definição orienta a arquitetura da Entrega 4.</span></li>
+      <li>Quais eventos de carga o sistema da Strada consegue enviar em tempo real?<span>Essa lista define os modelos de mensagem da Entrega 5.</span></li>
       <li>Qual é o prazo médio da análise de documentos?<span>Assim orientamos o motorista sobre quando consultar o resultado.</span></li>
       <li>Existem materiais que possam alimentar a base de conhecimento?<span>Manuais, tutoriais do app ou roteiros usados hoje pelo atendimento.</span></li>
       <li>Há regras de validação próprias para os documentos?<span>Por exemplo, categoria mínima de CNH conforme o veículo.</span></li>
