@@ -518,7 +518,7 @@ body{background:#FFFFFF;}
     <div class="sec-head">
       <span class="tag">Entregas</span>
       <h2>Cinco entregas, cada uma com escopo, prazo e investimento próprios.</h2>
-      <p>As Entregas 1 a 3 colocam o agente de IA em operação para o motorista. As Entregas 4 e 5 são evoluções que automatizam a validação de identidade e levam notificações ativas às transportadoras. A Entrega 1 cria a base usada pelas demais.</p>
+      <p>As Entregas 1 a 3 colocam o agente de IA em operação para o motorista. As Entregas 4 e 5 são evoluções que automatizam a validação de identidade e levam ofertas de frete ativas aos motoristas. A Entrega 1 cria a base usada pelas demais.</p>
     </div>
 
     <div class="route" aria-label="Prazo das entregas em dias úteis">
@@ -635,7 +635,7 @@ body{background:#FFFFFF;}
           <h4>Pré-requisitos da Strada</h4>
           <ul>
             <li>Serviço de biometria facial contratado pela Strada junto a um provedor especializado, com comparação facial e prova de vida.</li>
-            <li>API desse serviço que receba a selfie (arquivo ou URL) e o CPF ou a foto de referência, e devolva o resultado com o nível de confiança em tempo real, idealmente em até 10 segundos. Se a análise for assíncrona, webhook com o resultado.</li>
+            <li>API desse serviço que receba a selfie (arquivo ou URL) e o CPF ou a foto de referência, e devolva o resultado com o nível de confiança em tempo real, idealmente em até 10 segundos. Se a análise for assíncrona, o serviço deve enviar o resultado à API da Inmo assim que concluir.</li>
             <li>Endpoints de gravação para troca de telefone e para alteração de dados da ANTT e bancários, que hoje não fazem parte da API Chat-bot.</li>
             <li>Regras de aprovação definidas pela Strada, como nível mínimo de confiança e casos que exigem análise humana.</li>
           </ul>
@@ -654,30 +654,34 @@ body{background:#FFFFFF;}
     <article class="delivery">
       <div>
         <span class="num evo">Entrega 5 <em>Evolução</em></span>
-        <h3>Notificações ativas de status de carga para transportadoras</h3>
-        <p class="intro">A transportadora passa a ser avisada no WhatsApp sobre eventos da carga que geram custo, como espera para carregar, pendência de nota fiscal e atraso em trânsito. Com o aviso no momento certo, ela consegue agir antes de pagar multas, diárias de hotel e alimentação causadas por atrasos.</p>
+        <h3>Oferta ativa de frete para motoristas</h3>
+        <p class="intro">Os fretes disponíveis no sistema da Strada passam a ser ofertados de forma ativa aos motoristas cadastrados, direto no WhatsApp. O motorista aceita a carga na própria conversa, o aceite é gravado no sistema da Strada e quem tentar aceitar depois é avisado de que o frete já foi preenchido. Isso movimenta o comercial da Strada e ajuda a preencher as cargas mais rápido.</p>
         <ul class="scope">
-          <li>Disparo automático por evento<span>Eventos enviados pelo sistema da Strada viram mensagens ativas no WhatsApp, via Intrigg.</span></li>
-          <li>API intermediária<span>Recebe os webhooks da Strada e converte os eventos para o formato de envio do Intrigg.</span></li>
-          <li>Modelos de mensagem por evento<span>Até 6 modelos, como aguardando carregamento, espera excedida, pendência de nota fiscal, atraso em trânsito, chegada e descarga concluída.</span></li>
-          <li>Fluxo de resposta curto<span>Até 5 blocos para a transportadora confirmar o recebimento ou falar com o atendimento.</span></li>
-          <li>Regras de envio<span>Horários de envio, agrupamento de eventos e controle de descadastro.</span></li>
+          <li>Disparo das ofertas de frete<span>Cada frete enviado pelo sistema da Strada vira uma oferta no WhatsApp para os motoristas indicados, via Intrigg.</span></li>
+          <li>API intermediária<span>Recebe os gatilhos enviados pelo sistema da Strada e converte as ofertas para o formato de envio do Intrigg.</span></li>
+          <li>Fluxo de aceite curto<span>Até 5 blocos para o motorista aceitar ou recusar a oferta.</span></li>
+          <li>Verificação antes do aceite<span>Consulta se o frete ainda está disponível e se outro motorista já aceitou, evitando aceite duplicado.</span></li>
+          <li>Registro do aceite<span>O motorista que aceitou é gravado no sistema da Strada via API.</span></li>
+          <li>Regras de envio<span>Horários de envio, limite de ofertas por motorista e controle de descadastro.</span></li>
         </ul>
-        <div class="callout info"><b>Por que uma API intermediária.</b> O Intrigg ainda não tem integração nativa com o sistema da Strada. A API intermediária recebe os webhooks de eventos de carga, valida a autenticação e organiza os dados no formato esperado pelo Intrigg. Ela precisa de hospedagem, que pode ficar na infraestrutura da Strada ou, de forma opcional, com a Inmo.</div>
+        <div class="callout info"><b>Por que uma API intermediária.</b> O Intrigg ainda não tem integração nativa com o sistema da Strada. A API intermediária recebe os gatilhos enviados pelo sistema da Strada, com os fretes e os motoristas a ofertar, valida a autenticação e organiza os dados no formato esperado pelo Intrigg. Ela precisa de hospedagem, que pode ficar na infraestrutura da Strada ou, de forma opcional, com a Inmo.</div>
         <div class="prereq">
           <h4>Pré-requisitos da Strada</h4>
           <ul>
-            <li>Webhook do sistema da Strada para cada evento de carga, enviado à API intermediária no momento em que ele acontece, com autenticação por token ou assinatura.</li>
-            <li>Dados mínimos em cada evento: número da viagem, CNPJ e telefone de contato da transportadora, motorista, placa, tipo de evento, data e hora e, quando houver, previsão e localização.</li>
-            <li>Base de contatos das transportadoras com consentimento para receber mensagens no WhatsApp.</li>
-            <li>Plano Intrigg compatível com o volume de eventos. Com cerca de 6 mil carregamentos por dia, o volume tende a superar os planos padrão e é tratado em modelo sob medida.</li>
+            <li>Gatilho de novo frete: a cada frete disponível, o próprio sistema da Strada faz uma chamada à API intermediária da Inmo, enviando o frete e a lista de motoristas que devem receber a oferta, com autenticação por token ou assinatura. A iniciativa do envio é do sistema da Strada, sem consultas periódicas por parte da Inmo.</li>
+            <li>Dados mínimos em cada oferta: identificador do frete, origem, destino, data e janela de carregamento, tipo de carga e de veículo e, quando aplicável, valor do frete. Para cada motorista: identificador, nome e telefone.</li>
+            <li>API para consultar se o frete ainda está disponível.</li>
+            <li>API para consultar se algum motorista já aceitou o frete.</li>
+            <li>API para salvar o motorista que aceitou o frete.</li>
+            <li>Base de motoristas com consentimento para receber ofertas no WhatsApp.</li>
+            <li>Plano Intrigg compatível com o volume de ofertas, tratado em modelo sob medida quando superar os planos padrão.</li>
           </ul>
         </div>
       </div>
       <aside class="price-col">
         <span class="cap">Investimento</span>
         <div class="big">R$ 14.299,80</div>
-        <div class="row">Notificações e fluxo<b>R$ 7.799,90</b></div>
+        <div class="row">Ofertas e fluxo de aceite<b>R$ 7.799,90</b></div>
         <div class="row">API intermediária<b>R$ 6.499,90</b></div>
         <div class="row">Prazo<b>25 dias úteis</b></div>
         <div class="row">Hospedagem Inmo<b class="wrap">Opcional, sob consulta</b></div>
@@ -710,7 +714,10 @@ body{background:#FFFFFF;}
           <tr><td><span class="ext">API de biometria facial</span></td><td>Provedor contratado pela Strada</td><td>Comparação facial e prova de vida da selfie do motorista</td><td>4</td><td><span class="badge check">A disponibilizar</span></td></tr>
           <tr><td><span class="ext">Gravação de troca de telefone</span></td><td>Strada</td><td>Efetivar a troca do número após a aprovação</td><td>4</td><td><span class="badge check">A disponibilizar</span></td></tr>
           <tr><td><span class="ext">Gravação de dados da ANTT e bancários</span></td><td>Strada</td><td>Efetivar a alteração após a aprovação</td><td>4</td><td><span class="badge check">A disponibilizar</span></td></tr>
-          <tr><td><span class="ext">Webhook de eventos de carga</span></td><td>Strada</td><td>Enviar cada evento de carga à API intermediária em tempo real</td><td>5</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Gatilho de novo frete</span></td><td>Strada</td><td>O sistema da Strada chama a API intermediária a cada frete disponível, enviando os motoristas a ofertar</td><td>5</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Consulta de disponibilidade do frete</span></td><td>Strada</td><td>Verificar se o frete ainda está disponível antes do aceite</td><td>5</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Consulta de aceite do frete</span></td><td>Strada</td><td>Verificar se algum motorista já aceitou o frete</td><td>5</td><td><span class="badge check">A disponibilizar</span></td></tr>
+          <tr><td><span class="ext">Registro do aceite</span></td><td>Strada</td><td>Salvar o motorista que aceitou o frete</td><td>5</td><td><span class="badge check">A disponibilizar</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -730,7 +737,7 @@ body{background:#FFFFFF;}
       <span>Documento recebido ou aprovado</span>
       <span>Cadastro com informação pendente</span>
       <span>Atualização de status de viagem</span>
-      <span>Status de carga para transportadoras</span>
+      <span>Ofertas de frete para motoristas</span>
     </div>
     <div class="plans">
       <div class="plan">
@@ -782,8 +789,8 @@ body{background:#FFFFFF;}
       <p>Evoluções que conversam com o que vocês nos contaram. Cada uma seria avaliada e orçada em proposta própria.</p>
     </div>
     <div class="future">
-      <div><h4>Consultas para embarcadores</h4><p>Levar a consulta de status de carga também ao dono da mercadoria, aproveitando a estrutura criada na Entrega 5.</p></div>
-      <div><h4>Oferta ativa de frete</h4><p>Uso do WhatsApp para ofertar fretes ao caminhoneiro e estimular a demanda, apoiado em notificações e nos recursos de inteligência da Blip.</p></div>
+      <div><h4>Notificações para transportadoras</h4><p>Avisos ativos sobre eventos da carga que geram custo, como espera para carregar e atrasos, aproveitando a estrutura de disparos criada na Entrega 5.</p></div>
+      <div><h4>Consultas para transportadoras e embarcadores</h4><p>Levar a consulta de status de carga a outros públicos, conforme a disponibilidade de APIs por número de viagem ou CNPJ.</p></div>
     </div>
   </div>
 </section>
@@ -802,7 +809,7 @@ body{background:#FFFFFF;}
       <div class="inv-row sub"><div><h4>Subtotal das Entregas 1 a 3</h4></div><div class="d">72 dias úteis</div><div class="v">R$ 40.949,70</div></div>
       <div class="inv-group">Evoluções</div>
       <div class="inv-row"><div><h4>Entrega 4</h4><p>Validação de identidade com biometria facial</p></div><div class="d">15 dias úteis</div><div class="v">R$ 9.099,90</div></div>
-      <div class="inv-row"><div><h4>Entrega 5</h4><p>Notificações ativas de status de carga para transportadoras, com API intermediária</p></div><div class="d">25 dias úteis</div><div class="v">R$ 14.299,80</div></div>
+      <div class="inv-row"><div><h4>Entrega 5</h4><p>Oferta ativa de frete para motoristas, com API intermediária</p></div><div class="d">25 dias úteis</div><div class="v">R$ 14.299,80</div></div>
       <div class="inv-row total"><div><h4>Total com evoluções</h4></div><div class="d">112 dias úteis</div><div class="v">R$ 64.349,40</div></div>
     </div>
     <div class="terms">
@@ -827,7 +834,7 @@ body{background:#FFFFFF;}
     <ol class="questions">
       <li>Como as conversas atendidas no Blip serão vinculadas ao Zendesk?<span>O envio de documentos e a identificação pela conversa usam o identificador da conversa no Zendesk, e o documento é obtido a partir das mensagens dessa conversa.</span></li>
       <li>A Strada já possui ou pretende contratar um serviço de biometria facial?<span>Essa definição orienta a arquitetura da Entrega 4.</span></li>
-      <li>Quais eventos de carga o sistema da Strada consegue enviar em tempo real?<span>Essa lista define os modelos de mensagem da Entrega 5.</span></li>
+      <li>Para quantos motoristas cada frete costuma ser ofertado, e com que frequência?<span>Essa informação dimensiona o volume de ofertas e o plano do Intrigg da Entrega 5.</span></li>
       <li>Qual é o prazo médio da análise de documentos?<span>Assim orientamos o motorista sobre quando consultar o resultado.</span></li>
       <li>Existem materiais que possam alimentar a base de conhecimento?<span>Manuais, tutoriais do app ou roteiros usados hoje pelo atendimento.</span></li>
       <li>Há regras de validação próprias para os documentos?<span>Por exemplo, categoria mínima de CNH conforme o veículo.</span></li>
